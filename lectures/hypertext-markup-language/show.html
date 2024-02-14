@@ -1,0 +1,220 @@
+<h1>HyperText Markup Language (HTML)</h1>
+<p>HTML is the standard markup language/format for creating web pages, containing the content and structure of a page as a series of tags/elements.</p>
+<ul>
+<li><p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML">HTML | MDN</a> <br><em>When in doubt, refer to the MDN documentation!</em></p>
+</li>
+<li><p><a href="https://www.youtube.com/watch?v=CkzbI1Tv_rQ">Basics of HTML</a> <br><em>A very calming introduction by Laurel Schwulst.</em></p>
+</li>
+</ul>
+<p>HTML is the <em>skeleton</em> of the web. At its most basic it is a text file, in a folder on a computer, with a <code>.html</code> extension.</p>
+<h2>The basic document</h2>
+<p>HTML consists of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">range of elements</a>, nested inside one another.</p>
+<p><em>As a visual:</em></p>
+<img src='images/nesting.svg'>
+
+<p><em>As code:</em></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Page title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;This is a heading&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;p&gt;This is another paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The <code>&lt;html&gt;</code> element contains all elements of the page, the <code>&lt;head&gt;</code> element contains the title, and the body contains <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code>.</p>
+<p>We call these <a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics"><em>semantic</em> elements</a>—which is saying that they give their contents a <em>meaning</em> or a <em>role</em>. These <em>roles</em> are then interpreted by your browser (Chrome, Safari, Firefox, etc.) when it loads the file, to ultimately display the page. We call this <em>parsing</em> the document.</p>
+<p><em>In our example, here is what we’ve told the computer:</em></p>
+<ul>
+<li><p><code>&lt;!DOCTYPE html&gt;</code> <br>What kind of file this is, so it knows how to parse it. <br><em>This is not necessary in CSS or JS files.</em></p>
+</li>
+<li><p><code>&lt;html&gt;</code> <br>The root element of an HTML page, containing all the content.</p>
+</li>
+<li><p><code>&lt;head&gt;</code> <br>The <em>meta</em> information about the HTML page—like its title, default language, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script">scripts</a>, and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style">stylesheets</a>. <br><em>Nothing in this element is visible on the page itself.</em></p>
+</li>
+<li><p><code>&lt;title&gt;</code> <br>Specifies a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title">title</a> for the page—which is shown in the browser’s tab, and when it is shared.</p>
+</li>
+<li><p><code>&lt;body&gt;</code> <br>Defines the document&#39;s body—the container for all the visible contents, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.</p>
+</li>
+<li><p><code>&lt;h1&gt;</code> <br>Defines a primary/first-level heading.</p>
+</li>
+<li><p><code>&lt;p&gt;</code> <br>Defines a paragraph.</p>
+</li>
+</ul>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Page title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;This is a heading&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;p&gt;This is another paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2>What are elements?</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Glossary/Element">Elements</a> are composed of tags (opening, closing) and their content:</p>
+<img src='images/tag.svg'>
+
+<p>Some elements do not have any content or children, like <code>&lt;br&gt;</code> or <code>&lt;img&gt;</code>. These are called <a href="https://developer.mozilla.org/en-US/docs/Glossary/Empty_element"><em>empty elements</em></a> and do not have a closing tag.</p>
+<h3>Common elements</h3>
+<ul>
+<li><code>&lt;h1&gt;</code> <code>&lt;h2&gt;</code> <code>&lt;h3&gt;</code> <code>&lt;h4&gt;</code> <code>&lt;h5&gt;</code> <code>&lt;h6&gt;</code> for headings</li>
+</ul>
+<pre><code class="language-html">&lt;h1&gt;There should only be one first-level heading!&lt;/h1&gt;
+</code></pre>
+<ul>
+<li><code>&lt;p&gt;</code> for paragraphs</li>
+</ul>
+<pre><code class="language-html">&lt;p&gt;You should always wrap your text in a paragraph!&lt;/p&gt;
+</code></pre>
+<ul>
+<li><code>&lt;a&gt;</code> are links</li>
+</ul>
+<pre><code class="language-html">&lt;a href=&quot;https://www.example.com&quot;&gt;Links need attributes!&lt;/a&gt;
+</code></pre>
+<p>The <code>href</code> (<em>H</em>ypertext <em>REF</em>erence) specifies a URL that the link points to, and the tag wraps the visible link text. The <code>href</code> can point to another, local HTML file (living in the same directory structure) or an external page. They can also point to specific parts of a page.</p>
+<ul>
+<li><code>&lt;img&gt;</code> are images</li>
+</ul>
+<pre><code class="language-html">&lt;img src=&quot;example.jpg&quot; alt=&quot;Images should have descriptions!&quot;&gt;
+</code></pre>
+<p>The <code>src</code> can point to a local image file or an external URL! <code>alt</code> provides a description for accessibility/screen readers.</p>
+<ul>
+<li><code>&lt;header&gt;</code> <code>&lt;footer&gt;</code> <code>&lt;nav&gt;</code> <code>&lt;main&gt;</code> <code>&lt;article&gt;</code> <code>&lt;section&gt;</code> <code>&lt;div&gt;</code> define areas</li>
+</ul>
+<p>These are the structural containers of a website. The names don’t imbue meaning or function directly, but help us organize and think about our content structure. (And again, are helpful for accessibility.)</p>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;header&gt;
+    &lt;!-- A header. --&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;!-- Your main content. --&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;!-- The footer. --&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+<ul>
+<li><code>&lt;span&gt;</code> <code>&lt;strong&gt;</code> <code>&lt;em&gt;</code> wrap around bits of text, giving them font styling</li>
+</ul>
+<pre><code class="language-html">&lt;p&gt;You may have noticed I like using &lt;em&gt;emphasis&lt;/em&gt;.&lt;/p&gt;
+</code></pre>
+<ul>
+<li><code>ol</code> <code>ul</code>, and <code>li</code> build lists</li>
+</ul>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;&lt;!-- A list item. --&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;!-- Another. --&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;!-- A third. --&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h2>Attributes</h2>
+<p>All HTML elements can have <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes">attributes</a>, which provide more information about the element:</p>
+<img src='images/attr.svg'>
+
+<h3>Common attributes</h3>
+<ul>
+<li>The <code>href</code> attribute of <code>&lt;a&gt;</code> specifies the URL of the page the link goes to.</li>
+</ul>
+<pre><code class="language-html">&lt;a href=&quot;https://www.example.com&quot;&gt;Goes to example.com&lt;/a&gt;
+</code></pre>
+<ul>
+<li>The <code>src</code> attribute of <code>&lt;img&gt;</code> specifies the path to the image to be displayed, as above.</li>
+</ul>
+<pre><code class="language-html">&lt;img src=&quot;example.jpg&quot;&gt;
+</code></pre>
+<ul>
+<li>The <code>alt</code> attribute of <code>&lt;img&gt;</code> provides an alternate text for an image, used by screen readers.</li>
+</ul>
+<pre><code class="language-html">&lt;img src=&quot;example.jpg&quot; alt=&quot;A description of the image.&quot;&gt;
+</code></pre>
+<ul>
+<li>The <code>id</code> specifies a singular, unique element on a page—for CSS targeting and anchor (scroll, “jump”) links, prepended with <code>#</code>.</li>
+</ul>
+<pre><code class="language-html">&lt;h2 id=&quot;a-heading-element&quot;&gt;A heading element&lt;/h2&gt;
+
+&lt;a href=&quot;#a-heading-element&quot;&gt;Goes to “a heading element”&lt;/a&gt;
+</code></pre>
+<ul>
+<li>The <code>class</code> attribute provides a selector to hook on to with CSS.</li>
+</ul>
+<pre><code class="language-html">&lt;p class=&quot;warning&quot;&gt;We’ll get into this soon.&lt;/p&gt;
+</code></pre>
+<h2>Block elements</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">Block-level elements</a> always start on a new line, and take up the full width available—stretching out to the left and right of their parent/container. They stack on top of each other. Importantly, block elements can have a top and bottom margin, unlike inline elements.</p>
+<p>Earlier, we talked about area-defining elements. All of these area-defining elements are also block elements:</p>
+<p><code>&lt;header&gt;</code> <code>&lt;footer&gt;</code> <code>&lt;nav&gt;</code> <code>&lt;main&gt;</code> <code>&lt;section&gt;</code> <code>&lt;div&gt;</code></p>
+<p>The heading elements (<code>&lt;h1&gt;</code>, etc.), and <code>&lt;p&gt;</code> tags are also block-level.</p>
+<p>All of the above, in typical use:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;Block elements&lt;/title&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+
+    &lt;header&gt;
+      &lt;h1&gt;My Website&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;
+        &lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;
+        &lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;section id=&quot;about&quot;&gt;
+      &lt;h2&gt;About Me&lt;/h2&gt;
+      &lt;p&gt;I am a designer currently studying at Parsons.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;footer&gt;
+      &lt;a href=&quot;https://my-instagram-link&quot;&gt;Instagram&lt;/a&gt;
+      &lt;a href=&quot;/contact&quot;&gt;Contact Me&lt;/a&gt;
+    &lt;/footer&gt;
+
+  &lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<img src="images/block-level.png">
+
+<p>As said earlier in the lecture, HTML is the skeleton and content of the page. It won&#39;t look like much without CSS.</p>
+<h2>Inline elements</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">Inline elements</a> do <em>not</em> start on a new line, and only take up as much width as necessary. I like to think of these as the little metal slugs <a href="https://en.wikipedia.org/wiki/Slug_(typesetting)">from printing</a>. Other text and inline elements will continue to flow around them, and they can wrap to new lines:</p>
+<p><code>&lt;a&gt;</code> <code>&lt;em&gt;</code> <code>&lt;img&gt;</code> <code>&lt;span&gt;</code></p>
+<p>Inline elements often exist within block elements:</p>
+<pre><code class="language-html">&lt;p&gt;
+  This is a &lt;a href=&quot;https://www.example.com&quot;&gt;link&lt;/a&gt; to an &lt;em&gt;important&lt;/em&gt; website.
+&lt;/p&gt;
+&lt;div&gt;
+  &lt;img src=&quot;https://upload.wikimedia.org/wikipedia/en/a/a9/Example.jpg&quot; alt=&quot;Example Image&quot;&gt;
+&lt;/div&gt;
+&lt;p&gt;
+  This is a &lt;em&gt;styled&lt;/em&gt; &lt;span class=&quot;blue-text&quot;&gt;test&lt;/span&gt; element.
+&lt;/p&gt;
+</code></pre>
+<img src="images/inline.png">
+
+
+<h2>Comments</h2>
+<p>You can <em>comment</em> part of the code and the browser won’t show it. <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started#html_comments">Comments</a> are often used to explain your thinking, organize your code, “turn off” a bit of code, or hide whatever you’d like:</p>
+<pre><code class="language-html">&lt;!-- this is a comment in HTML that will not appear on the page --&gt;
+
+&lt;!--
+  You can also make
+  a multi-line comment
+  like this.
+  --&gt;
+</code></pre>
+<p>Keep in mind comments are still readable in your source code, so don&#39;t put any secrets in there. Nearly every programming language allows comments.</p>
+<p>I highly recommend getting into a habit of commenting your code, especially when starting out. If you figure something tricky out, write down why and how you solved it to help you understand and remember. And you’ll often come back to things. Commenting your code is a gift to your future self!</p>

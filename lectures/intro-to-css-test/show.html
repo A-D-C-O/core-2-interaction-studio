@@ -1,0 +1,213 @@
+<h1>Intro to CSS</h1>
+<h2>CSS stands for <em>Cascading Style Sheets</em></h2>
+<p>CSS is the standard language for styling web pages, which specifies what the page’s HTML will look like in the browser.</p>
+<p>Just like HTML, it is still just text, in a file, on a computer. It can live inside HTML documents themselves, but is more commonly seen on its own with the extension <code>.css</code></p>
+<p>CSS came after HTML, first proposed by <a href="https://www.w3.org/Style/CSS20/history.html">Håkon Wium Lie</a> in 1994 – who was working with Tim Berners-Lee at CERN and wanted more control over the presentation of web pages.</p>
+<h2>Where CSS lives</h2>
+<p>Before we get into CSS itself, let’s talk about how it is incorporated with HTML. There are three ways it can be added:</p>
+<ul>
+<li>Inline on HTML tags themselves</li>
+<li>Via <code>&lt;style&gt;</code> elements in HTML documents</li>
+<li>As separate/external files via <code>&lt;link&gt;</code> elements</li>
+</ul>
+<h3>Inline <code>style=</code></h3>
+<p>This was the original way to add styles, directly as attributes in HTML tags:</p>
+<pre><code class="language-html">&lt;p style=&quot;color: red;&quot;&gt;This text will be red!&lt;/p&gt;
+</code></pre>
+<p>This has some downsides. Imagine you want to style all of your paragraphs in the same way, and with multiple properties:</p>
+<pre><code class="language-html">&lt;p style=&quot;color: red; font-family: sans-serif;&quot;&gt;This text will be red!&lt;/p&gt;
+&lt;p style=&quot;color: red; font-family: sans-serif;&quot;&gt;I’d also like this to be red.&lt;/p&gt;
+&lt;p style=&quot;color: red; font-family: sans-serif;&quot;&gt;And they are all sans-serif, too.&lt;/p&gt;
+</code></pre>
+<p>It makes it hard to read, and hard to change and maintain. You’d have to update every single instance. In software, we’d refer to this as <em>brittle</em> – meaning &quot;easy to break&quot;. You can imagine this getting even harder to read the more properties you add.</p>
+<h3>The <code>&lt;style&gt;</code> tag</h3>
+<p>So the next way that was added to the standard was using a special HTML element, <code>&lt;style&gt;</code>, that wraps blocks of CSS that then apply to an entire document. They go up in the <code>&lt;head&gt;</code> of our <a href="/topic/html/#the-basic-document">HTML documents</a>:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Page title&lt;/title&gt;
+    &lt;style&gt;
+      p {
+        color: red;
+        font-family: sans-serif;
+      }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;p&gt;This is another paragraph.&lt;/p&gt;
+    &lt;p&gt;This is third paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The rules are written written with selectors – more on those, below. But importantly, we can now control the color of all the paragraphs easily, at once.</p>
+<h3>External <code>&lt;link&gt;</code> tag</h3>
+<p>So this is already much better, allowing us to style whole pages easily and consistently. But what about when we have <em>multiple</em> pages? If you wanted a whole site to use the same styles, you’d have to duplicate the <code>&lt;style&gt;</code> tag over and over, updated it everywhere whenever you changes. Still brittle. So along comes the <code>&lt;link&gt;</code> element:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Page title&lt;/title&gt;
+    &lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    &lt;p&gt;This is another paragraph.&lt;/p&gt;
+    &lt;p&gt;This is third paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>And then in a separate <code>style.css</code> file (in this case, in the same directory as our HTML file), we can have the same rules as before – no need for the outside wrapping <code>&lt;style&gt;</code> tag:</p>
+<pre><code class="language-css">p {
+  color: red;
+  font-family: sans-serif;
+}
+</code></pre>
+<p>This will apply to any page that we add the <code>&lt;link&gt;</code> to, and updating the styles will now change the color of the paragraphs in our <em>entire web site</em>.</p>
+<p>We’ll talk more about <em><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">specificity</a></em> later, but it is worth noting that the <em>inline</em> approach will usually take precedent over other methods – under the “closest, then lowest” logic.</p>
+<h2>CSS rules</h2>
+<p>Even though it is used to style HTML elements, the syntax of CSS is very different. CSS <em>rules</em> are made up of <em>selectors</em>, used to target certain elements, and then the <em>declarations</em> that you want to apply to them:</p>
+<p><img src="assets/rule.svg" alt=""></p>
+<p>The curly brackets <code>{</code> <code>}</code> enclose all the declarations you want to apply to a given selector. These <em>declarations</em> are in turn made up of <em>properties</em> and <em>values</em>.</p>
+<p>Properties are always separated from their corresponding values by a colon <code>:</code>, and each declaration line has to end in a semicolon <code>;</code>. Also, there are no spaces between values and their units (like <code>20px</code>)</p>
+<p>There are <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference">many, many CSS properties</a>. Here is a shorter <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference">“common” list</a>.</p>
+<h2>Basic selectors</h2>
+<p>Selectors are used to <em>target</em> certain HTML elements within the page. These can get pretty complicated, but we’ll look at the three simplest and most common methods to start:</p>
+<ul>
+<li>Elements</li>
+<li>IDs</li>
+<li>Classes</li>
+</ul>
+<h3>Element selector</h3>
+<p>If you want to change the styles for all instances of a given HTML element, you drop the <code>&lt;</code> <code>&gt;</code> from the tag for an element selector. These are called <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors"><em>type selectors</em></a>:</p>
+<pre><code class="language-css">a {
+  color: blue;
+  text-decoration: underline;
+}
+
+p {
+  font-family: Arial;
+  font-size: 20px;
+}
+</code></pre>
+<h3>ID selector</h3>
+<p>You can also use an <code>id</code>, which is a kind of <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">special attribute</a> that can only be used <em>once</em> in an HTML document:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="rNRZprX" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/rNRZprX">
+  id selector</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>These are prefixed by <code>#</code> in CSS, as with <code>#title</code> and <code>#introduction</code>.</p>
+<h3>Class selector</h3>
+<p>You can then use a <code>class</code> to <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors">target specific instances</a>. They are added as an <em><a href="/topic/html/#attributes">attribute</a></em> on the element you want to target:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="abMaqzZ" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/abMaqzZ">
+  class selector</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>The <em>value</em> here is our class name, which we write in CSS by prefixing with a <code>.</code> as with <code>.highlight</code>.</p>
+<p>Individual elements can have <em>multiple</em> classes, too. Class names can be whatever you want – there are whole methodologies about what to call these things, such as <a href="https://getbem.com/introduction/">BEM</a>, but for now just make them descriptive and consistent.</p>
+<p>Classes are the most common way to target things in CSS. Prefer them over IDs, as they are more flexible and reusable. (You can only use an ID once, but you can use a class as many times as you want.)</p>
+<h2>Advanced selectors</h2>
+<h3>Attributes</h3>
+<p>You can use the various HTML attributes as selectors, too. These are similar to using <em>classes</em>, but can help you <a href="https://css-tricks.com/attribute-selectors/">differentiate things</a> like internal and external links, for example:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="WNmgMxm" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/WNmgMxm">
+  attribute selector</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<h3>Pseudo-classes</h3>
+<p>These are <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">special selectors</a>, added to <code>element</code>, <code>class</code>, or <code>id</code> which target unique <em>states</em> or <em>instances</em> of HTML elements. You’ll often see these used to target <a href="https://web.dev/learn/css/pseudo-classes/#historic-states">link states</a>:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="eYXLVEZ" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/eYXLVEZ">
+  pseudo class</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<h3>Combinators</h3>
+<p>You will sometimes want to target something based on its relationship to other elements – its <em>siblings</em> or its <em>parents</em>. For this, CSS has <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Combinators"><em>combinators</em></a>, which let you relate all the various selectors we’ve learned about here together.</p>
+<p>Importantly, combinators can only “see” elements <em>before</em> and <em>above</em> themselves – meaning their <em>previous <em>(older?)</em> siblings</em> or their <em>parents</em>. This directionality somewhat corresponds with the <em>cascade</em>, which we’ll talk about shortly.</p>
+<p>For the most part these can get very complicated and are generally considered bad practice.</p>
+<h3><code>:has()</code> changes this!</h3>
+<p>However, for many years folks have wanted a “parent selector” in CSS – meaning a way to apply a style to a parent/container based on one of its children. This was not possible before, as we mentioned above.</p>
+<p>CSS has <a href="https://webkit.org/blog/13096/css-has-pseudo-class/">finally added</a> the <code>:has()</code> pseudo-class. It allows us to write much simpler, logical styles:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="MWxqVPQ" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/MWxqVPQ">
+  Untitled</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>This code will target the parent <code>.my-parent</code> that has the element <code>.my-child</code> within it (effectively targeting a <em>parent</em> based on the <em>child</em>).</p>
+<h2>Specificity</h2>
+<p>The first three targeting methods (<code>element</code>, <code>.class</code>, <code>#id</code>) are listed in increasing order of <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity"><em>specificity</em></a>, meaning that a class trumps an element rule, and an ID trumps a class.</p>
+<p>IDs are thus <em>more specific</em> than classes, which are <em>more specific</em> than element selectors. (And you shouldn’t really use them, but inline styles beat them all.) Take this example:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="abMaYrX" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/abMaYrX">
+  css specificity</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>You could write a <em>long</em> book (and many people have) about CSS specificity – the myriad of ways that some CSS rules take precedent over others. It is often one the more frustrating parts (especially when working with legacy code that is poorly considered).</p>
+<p>The easiest way to avoid specificity problems is generally to <em>stay at the same level throughout your HTML/CSS, by just using classes</em>.</p>
+<h2>Oh right, the cascade</h2>
+<p>We haven’t even talked about that first <em>C</em>! Remember, it stands for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade"><em>cascading</em></a>. This means that when there is a tie (like two classes applying the same property), the <em>lowest</em> rule wins – literally the one further down within a CSS document, or within a style tag. If you have multiple CSS documents with <code>&lt;link&gt;</code> element, the lower linked document will take precedence.</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="JjzaLQV" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/JjzaLQV">
+  css cascade</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+
+<h2>And inheritance</h2>
+<p>To add even more confusion, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance">some CSS properties</a> set on a parent also apply to their children – such as <code>color</code> or <code>font-family</code>. Most spacing/layout properties, like <code>width</code> and <code>margin</code> do not.</p>
+<p>This allows you to quickly set some properties globally, without having many brittle/redundant rules, as we did before:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="QWoVrLO" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/QWoVrLO">
+  css inheritance</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>All the children inherit the <code>body</code> styles.</p>
+<h2>Some example properties</h2>
+<p>Alright, so all this has been about <em>targeting</em> elements – what about actually styling them? Let’s introduce a few quick <em>properties</em> to get us started.</p>
+<h3>Color</h3>
+<p>Besides the basic examples above, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"><em>color</em></a> can be specified in a few different ways:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="LYaJmGP" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/LYaJmGP">
+  css color</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>Named colors are quick to work with when you know a few, but <code>hsla</code> offers a more intuitive way to adjust and work with colors.</p>
+<p>These can also all be applied to <code>background-color</code> and <code>border</code>, and anywhere that accepts a color.</p>
+<h3>Fonts</h3>
+<p>Then perhaps most importantly, you’ll usually be customizing your <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals">typography</a>:</p>
+<p class="codepen" data-height="300" data-theme-id="48523" data-default-tab="html,result" data-slug-hash="poYOVjV" data-editable="true" data-user="jackrieger" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/jackrieger/pen/poYOVjV">
+  css fonts</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+
+<p>Web font licensing is a <em>Whole Big Thing</em> – so let’s start out by making use of <a href="https://www.w3schools.com/cssref/css_websafe_fonts.php">web-safe fonts</a> or <a href="https://fonts.google.com">Google Fonts</a>, which offers many <em>open-source</em> typefaces nicely packaged for web use. You can select <em>families</em> and <em>weights</em> there to easily include in your pages, as in the example above.</p>
+<h3>More type properties</h3>
+<p>Once you’ve got a <code>font-family</code> in, there are additional properties to control the typography:</p>
+<iframe height="400" style="width: 100%;" scrolling="no" title="css type properties" src="https://codepen.io/jackrieger/embed/MWxqGKq?default-tab=html%2Cresult&editable=true&theme-id=48523" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/jackrieger/pen/MWxqGKq">
+  css type properties</a> by Jack Rieger (<a href="https://codepen.io/jackrieger">@jackrieger</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+
+<h2>Resets</h2>
+<p>Browsers have their own, built-in way that they display HTML elements. These <em>user-agent styles</em> are specific, somewhat, to each platform and each browser. This is the “look” we have been seeing when we write plain HTML without any CSS – usually Times New Roman, with blue links, and small spacing between elements.</p>
+<p>Often, when you are working towards your own design, you will find yourself fighting against these built-in styles. Many designers/front-end folk instead start with <em>resets</em> – a semi-standard collection of CSS rules that “zero out” the browser’s built-in styles. This means you have to write everything yourself, but you have more control and aren’t building on unknown foundations. And things should be (more) consistent, across browsers and platforms.</p>
+<p>Here is a <a href="https://elad2412.github.io/the-new-css-reset/">simple, modern one</a> for your <code>&lt;head&gt;</code>. Download the raw file <a href="https://github.com/elad2412/the-new-css-reset/blob/main/css/reset.css">here</a> and use it like so:</p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;reset.css&quot;&gt; &lt;!-- reset default styles --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt; &lt;!-- your styles --&gt;
+&lt;/head&gt;
+</code></pre>
+<hr>
+<p>This lecture was originally written by <a href="https://michaelfehrenbach.com/">Michael Fehrenbach</a>. It has since been edited.</p>
